@@ -36,7 +36,7 @@ if __name__ == "__main__":
         print("="*55)
         print("1. Search Books          ← YOUR PART (100% DONE)")
         print("2. Checkout Book         ← Teammate")
-        print("3. Checkin Book          ← Teammate")
+        print("3. Checkin Book          ← Kimberly (Grace) Niemiec (100% DONE)")
         print("4. Add Borrower          ← Teammate")
         print("5. Pay Fines             ← Teammate")
         print("6. Exit")
@@ -47,6 +47,13 @@ if __name__ == "__main__":
             if q:
                 results = search_books(q)
                 print_results(results)
+            else:
+                print("Enter a search term.")
+        elif choice == "3":
+            query = input("Enter ISBN, Card ID, or Borrower Name to checkin a book: ").strip()
+            if query:
+                result = checkin_book(query)
+                print(result)
             else:
                 print("Enter a search term.")
         elif choice == "6":
