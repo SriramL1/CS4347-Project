@@ -7,7 +7,7 @@ Implemented: Checking In Books (Kimberly Grace)
 Implemented: Borrower Management (Ashrita Dara) 
 Implemented: Fines --both functions-- (Mira Shan) 
 
-Programming Language & Database (Approved per Assignment) 
+Programming Language & Database 
 • Language: Python 3.11 
 • Database: SQLite (built-in Python module) 
 • GUI: Console-based (GUI not required until Milestone 3) 
