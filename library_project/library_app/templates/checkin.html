@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Check In a Book</h2>
+
+{% if message %}
+    <div class="message success">
+        {{ message }}
+    </div>
+{% endif %}
+
+<h3>Currently Checked Out Books</h3>
+
+{% if loans %}
+    <table>
+        <thead>
+            <tr>
+                <th>Loan ID</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Borrower</th>
+                <th>Date Out</th>
+                <th>Due Date</th>
+                <th>Potential Fine</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
+            <tr>
+                <td>{{ loan.Loan_id }}</td>
+                <td>{{ loan.Isbn }}</td>
+                <td>{{ loan.Title }}</td>
+                <td>{{ loan.Card_id }}</td>
+                <td>{{ loan.Date_out }}</td>
+                <td>{{ loan.Due_date }}</td>
+                <td>
+                    {% if loan.potential_fine > 0 %}
+                        <span style="color: red; font-weight: bold;">${{ loan.potential_fine|floatformat:2 }}</span>
+                    {% else %}
+                        <span style="color: green;">${{ loan.potential_fine|floatformat:2 }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="post" style="display: inline; padding: 0; margin: 0; background: none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="loan_id" value="{{ loan.Loan_id }}">
+                        <button type="submit">Check In</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p style="color: #6c757d;">No books currently checked out.</p>
+{% endif %}
+
+<a href="/" class="back-link">← Back to Search</a>
+{% endblock %}

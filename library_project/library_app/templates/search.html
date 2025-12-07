@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Books</h2>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Search by ISBN, Title, or Author..." value="{{ query }}" autofocus>
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    <p>Found {{ results|length }} result(s) for "{{ query }}"</p>
+    
+    {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Authors</th>
+                    <th>Checked Out</th>
+                    <th>Borrower ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in results %}
+                <tr>
+                    <td>{{ book.Isbn }}</td>
+                    <td>{{ book.Title }}</td>
+                    <td>{{ book.authors|default:"Unknown" }}</td>
+                    <td>
+                        {% if book.checked_out == 'Yes' %}
+                            <span class="badge out">Yes</span>
+                        {% else %}
+                            <span class="badge in">No</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ book.borrower_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="color: #6c757d; margin-top: 20px;">No books found matching your search.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

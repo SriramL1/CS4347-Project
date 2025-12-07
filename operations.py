@@ -90,7 +90,7 @@ def checkout_book(isbn: str, card_id: str) -> str:
 
     # Insert loan
     today = datetime.now().date()
-    due = today + timedelta(days=14)
+    due = today + timedelta(days=2)
     c.execute("INSERT INTO BOOK_LOANS (Isbn, Card_id, Date_out, Due_date) VALUES (?, ?, ?, ?)",
               (isbn, card_id, today, due))
     conn.commit()

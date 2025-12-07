@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Fines Management</h2>
+
+{% if message %}
+    <div class="message success">
+        {{ message }}
+    </div>
+{% endif %}
+
+<div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h3 style="margin: 0; color: #856404;">Total Unpaid Fines: ${{ total_unpaid|floatformat:2 }}</h3>
+</div>
+
+{% if fines %}
+    <table>
+        <thead>
+            <tr>
+                <th>Loan ID</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Borrower ID</th>
+                <th>Borrower Name</th>
+                <th>Fine Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fine in fines %}
+            <tr>
+                <td>{{ fine.Loan_id }}</td>
+                <td>{{ fine.Isbn }}</td>
+                <td>{{ fine.Title }}</td>
+                <td>{{ fine.Card_id }}</td>
+                <td>{{ fine.Bname }}</td>
+                <td>${{ fine.Fine_amt|floatformat:2 }}</td>
+                <td>
+                    <span class="badge {% if fine.status == 'Paid' %}paid{% else %}unpaid{% endif %}">
+                        {{ fine.status }}
+                    </span>
+                </td>
+                <td>
+                    {% if fine.status == 'Unpaid' %}
+                        <form method="post" style="display: inline; padding: 0; margin: 0; background: none;">
+                            {% csrf_token %}
+                            <input type="hidden" name="loan_id" value="{{ fine.Loan_id }}">
+                            <button type="submit" name="pay">Pay Fine</button>
+                        </form>
+                    {% else %}
+                        <span style="color: #28a745;">✓ Paid</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p style="color: #6c757d;">No fines in the system.</p>
+{% endif %}
+
+<a href="/" class="back-link">← Back to Search</a>
+{% endblock %}

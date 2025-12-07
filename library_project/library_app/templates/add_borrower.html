@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add New Borrower</h2>
+
+{% if message %}
+    <div class="message {% if success %}success{% else %}error{% endif %}">
+        {{ message|safe }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="ssn">SSN (XXX-XX-XXXX):</label>
+    <input type="text" name="ssn" id="ssn" placeholder="123-45-6789" pattern="\d{3}-\d{2}-\d{4}" required>
+    
+    <label for="bname">Full Name:</label>
+    <input type="text" name="bname" id="bname" placeholder="John Doe" required>
+    
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" placeholder="123 Main St, City, State" required>
+    
+    <label for="phone">Phone (optional):</label>
+    <input type="text" name="phone" id="phone" placeholder="(123) 456-7890">
+    
+    <button type="submit">Add Borrower</button>
+</form>
+
+<a href="/" class="back-link">← Back to Search</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Check Out a Book</h2>
+
+{% if message %}
+    <div class="message {% if success %}success{% else %}error{% endif %}">
+        {{ message|safe }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="isbn">ISBN:</label>
+    <input type="text" name="isbn" id="isbn" required>
+    
+    <label for="card_id">Borrower Card ID:</label>
+    <input type="text" name="card_id" id="card_id" required>
+    
+    <button type="submit">Check Out Book</button>
+</form>
+
+<a href="/" class="back-link">← Back to Search</a>
+{% endblock %}
