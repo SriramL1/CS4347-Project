@@ -1,4 +1,4 @@
-# views.py - Using %s placeholders (works better with Django SQLite)
+# views.py
 from django.shortcuts import render
 from django.db import connection, transaction
 from datetime import date, timedelta

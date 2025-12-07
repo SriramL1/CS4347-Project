@@ -1,5 +1,4 @@
 # library_app/urls.py
-# library/urls.py or your app's urls.py
 from django.urls import path
 from . import views
 
